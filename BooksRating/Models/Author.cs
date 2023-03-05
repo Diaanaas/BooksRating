@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BooksRating.Models;
 
@@ -7,7 +8,9 @@ public partial class Author
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = null!;
+	[Required(ErrorMessage = "Поле обов'язкове")]
+	[Display(Name = "Ім'я автора")]
+	public string Name { get; set; } = null!;
 
     public int CountryId { get; set; }
 
