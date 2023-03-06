@@ -48,8 +48,8 @@ namespace BooksRating.Controllers
         // GET: Ratings/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title");
-            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name");
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Description");
+            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Email");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace BooksRating.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
-            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Description", rating.BookId);
+            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Email", rating.ReaderId);
             return View(rating);
         }
 
@@ -84,8 +84,8 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
-            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Description", rating.BookId);
+            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Email", rating.ReaderId);
             return View(rating);
         }
 
@@ -121,8 +121,8 @@ namespace BooksRating.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
-            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Description", rating.BookId);
+            ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Email", rating.ReaderId);
             return View(rating);
         }
 

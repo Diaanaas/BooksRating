@@ -12,8 +12,6 @@ public partial class Author
 	[Display(Name = "Ім'я автора")]
 	public string Name { get; set; } = null!;
 
-    [Required(ErrorMessage = "Поле обов'язкове")]
-    [Display(Name = "Країна")]
     public int CountryId { get; set; }
 
     public virtual ICollection<BookAuthor> BookAuthors { get; } = new List<BookAuthor>();

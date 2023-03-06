@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Додати книгу</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -23,9 +23,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cover)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookAuthors)
             </th>
             <th></th>
         </tr>
@@ -45,9 +42,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Cover)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookAuthors.FirstOrDefault().AuthorId)
-                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

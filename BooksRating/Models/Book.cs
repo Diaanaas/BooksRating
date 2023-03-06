@@ -14,9 +14,7 @@ public partial class Book
 
 	[Required(ErrorMessage = "Поле обов'язкове")]
 	[Display(Name = "Рік видання")]
-    [DataType(DataType.Date)]
-    [DisplayFormat(DataFormatString = "{0:yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime PublishedYear { get; set; }
+	public DateTime PublishedYear { get; set; }
 
 	[Required(ErrorMessage = "Поле обов'язкове")]
 	[Display(Name = "Опис")]

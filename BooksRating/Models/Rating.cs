@@ -12,12 +12,8 @@ public partial class Rating
 	[Display(Name = "Рейтинг книги")]
 	public double Rating1 { get; set; }
 
-    [Required(ErrorMessage = "Поле обов'язкове")]
-    [Display(Name = "Книга")]
     public int BookId { get; set; }
 
-    [Required(ErrorMessage = "Поле обов'язкове")]
-    [Display(Name = "Читач")]
     public int ReaderId { get; set; }
 
     public virtual Book Book { get; set; } = null!;
