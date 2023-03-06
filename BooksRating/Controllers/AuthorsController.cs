@@ -64,7 +64,7 @@ namespace BooksRating.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", author.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", author.CountryId);
             return View(author);
         }
 
@@ -81,7 +81,7 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", author.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", author.CountryId);
             return View(author);
         }
 
@@ -117,7 +117,7 @@ namespace BooksRating.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", author.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", author.CountryId);
             return View(author);
         }
 
