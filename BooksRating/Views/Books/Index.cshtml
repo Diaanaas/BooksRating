@@ -24,6 +24,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Cover)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookAuthors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookGenres)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,6 +48,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Cover)
             </td>
+                <td>
+                    @foreach (var author in item.BookAuthors)
+                    {
+                        @author.Author.Name
+                        <br />
+                    }
+
+                </td>
+                <td>
+                    @foreach (var genre in item.BookGenres)
+                    {
+                        @genre.Genre.Name
+                        <br />
+                    }
+                <td />
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

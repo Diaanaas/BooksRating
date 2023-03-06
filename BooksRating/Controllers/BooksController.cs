@@ -21,9 +21,11 @@ namespace BooksRating.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-              return _context.Books != null ? 
-                          View(await _context.Books.ToListAsync()) :
-                          Problem("Entity set 'BookratingContext.Books'  is null.");
+            var bookratingContext = _context.Books.Include(r => r.BookAuthors).ThenInclude(r => r.Author).Include(r => r.BookGenres).ThenInclude(r => r.Genre);
+            return View(await bookratingContext.ToListAsync());
+            //return _context.Books != null ?
+            //              View(await _context.Books.ToListAsync()) :
+            //              Problem("Entity set 'BookratingContext.Books'  is null.");
         }
 
         // GET: Books/Details/5
