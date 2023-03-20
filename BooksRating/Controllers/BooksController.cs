@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BooksRating.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BooksRating.Controllers
 {
@@ -49,6 +51,8 @@ namespace BooksRating.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
+            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name");
             return View();
         }
 
@@ -59,6 +63,11 @@ namespace BooksRating.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,PublishedYear,Description,Cover")] Book book)
         {
+            DateTime date1 = new DateTime(1900, 1, 1);
+            if (book.PublishedYear > DateTime.Now || book.PublishedYear < date1)
+            {
+                ModelState.AddModelError("PublishedYear", "Рік має бути між 1900 та 2023");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(book);
@@ -95,7 +104,11 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-
+            DateTime date1 = new DateTime(1900, 1, 1);
+            if (book.PublishedYear > DateTime.Now || book.PublishedYear < date1)
+            {
+                ModelState.AddModelError("PublishedYear", "Рік має бути між 01.01.1900 та поточною датою");
+            }
             if (ModelState.IsValid)
             {
                 try

@@ -10,6 +10,7 @@ public partial class Rating
 
     [Required(ErrorMessage = "Поле обов'язкове")]
     [Display(Name = "Рейтинг книги")]
+    [Range(0, 100,ErrorMessage ="Значення має бути між 0 та 100")]
     public double Rating1 { get; set; }
 
     [Display(Name = "Книга")]
