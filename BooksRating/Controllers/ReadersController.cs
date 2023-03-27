@@ -57,6 +57,12 @@ namespace BooksRating.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Email")] Reader reader)
         {
+            var readers = _context.Readers.ToArray();
+            foreach (var b in readers)
+            {
+                if (b.Name == reader.Name)
+                    ModelState.AddModelError("Name", "Читач з таким іменем вже існує");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(reader);
@@ -124,7 +130,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-
+            var ratings = _context.Ratings.ToArray();
+            foreach (var b in ratings)
+            {
+                if (id == b.ReaderId)
+                    return Problem("Читач використовується");
+            }
             var reader = await _context.Readers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reader == null)

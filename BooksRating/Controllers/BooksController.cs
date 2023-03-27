@@ -63,6 +63,12 @@ namespace BooksRating.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,PublishedYear,Description,Cover")] Book book)
         {
+            var books =  _context.Books.ToArray();
+            foreach (var b in books)
+            {
+                if(b.Title == book.Title)
+                ModelState.AddModelError("Title", "Книга з такою назвою вже існує");
+            }
             DateTime date1 = new DateTime(1900, 1, 1);
             if (book.PublishedYear > DateTime.Now || book.PublishedYear < date1)
             {
@@ -109,6 +115,7 @@ namespace BooksRating.Controllers
             {
                 ModelState.AddModelError("PublishedYear", "Рік має бути між 01.01.1900 та поточною датою");
             }
+
             if (ModelState.IsValid)
             {
                 try
@@ -139,7 +146,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-
+            var ratings = _context.Ratings.ToArray();
+            foreach (var b in ratings)
+            {
+                if (id == b.BookId)
+                    return Problem("Книга використовується");
+            }
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)

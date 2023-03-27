@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BooksRating.Models;
+using System.Diagnostics.Metrics;
 
 namespace BooksRating.Controllers
 {
@@ -57,6 +58,12 @@ namespace BooksRating.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Genre genre)
         {
+            var genres = _context.Genres.ToArray();
+            foreach (var b in genres)
+            {
+                if (b.Name == genre.Name)
+                    ModelState.AddModelError("Name", "Жанр з такою назвою вже існує");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(genre);
@@ -124,7 +131,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-
+            var bg = _context.BookGenres.ToArray();
+            foreach (var b in bg)
+            {
+                if (id == b.GenreId)
+                    return Problem("Жанр використовується");
+            }
             var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (genre == null)

@@ -31,5 +31,6 @@ public partial class Book
     [Display(Name = "Жанри")]
     public virtual ICollection<BookGenre> BookGenres { get; } = new List<BookGenre>();
 
+    [Display(Name = "Рейтинг")]
     public virtual ICollection<Rating> Ratings { get; } = new List<Rating>();
 }
