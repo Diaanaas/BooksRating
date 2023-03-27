@@ -51,6 +51,9 @@ namespace BooksRating.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
+            var book = new Book();
+            book.BookAuthors = new List<BookAuthor>();
+            book.BookGenres = new List<BookGenre>();
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
             ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name");
             return View();
@@ -61,7 +64,7 @@ namespace BooksRating.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,PublishedYear,Description,Cover")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Title,PublishedYear,Description,Cover")] Book book, string[] selectedAuthor, string[] selectedGenre)
         {
             var books =  _context.Books.ToArray();
             foreach (var b in books)
@@ -73,6 +76,24 @@ namespace BooksRating.Controllers
             if (book.PublishedYear > DateTime.Now || book.PublishedYear < date1)
             {
                 ModelState.AddModelError("PublishedYear", "Рік має бути між 1900 та 2023");
+            }
+            if (selectedAuthor != null)
+            {
+                book.BookAuthors = new List<BookAuthor>();
+                foreach (var author in selectedAuthor)
+                {
+                    var authorToAdd = new BookAuthor { BookId = book.Id, AuthorId = int.Parse(author) };
+                    book.BookAuthors.Add(authorToAdd);
+                }
+            }
+            if (selectedGenre != null)
+            {
+                book.BookGenres = new List<BookGenre>();
+                foreach (var genre in selectedGenre)
+                {
+                    var genreToAdd = new BookGenre { BookId = book.Id, GenreId = int.Parse(genre) };
+                    book.BookGenres.Add(genreToAdd);
+                }
             }
             if (ModelState.IsValid)
             {

@@ -26,10 +26,10 @@ public partial class Book
     public byte[]? Cover { get; set; }
 
     [Display(Name = "Автори")]
-    public virtual ICollection<BookAuthor> BookAuthors { get; } = new List<BookAuthor>();
+    public virtual ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
 
     [Display(Name = "Жанри")]
-    public virtual ICollection<BookGenre> BookGenres { get; } = new List<BookGenre>();
+    public virtual ICollection<BookGenre> BookGenres { get; set; } = new List<BookGenre>();
 
     [Display(Name = "Рейтинг")]
     public virtual ICollection<Rating> Ratings { get; } = new List<Rating>();
