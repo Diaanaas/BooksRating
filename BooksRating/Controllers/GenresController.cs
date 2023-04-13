@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BooksRating.Models;
 using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BooksRating.Controllers
 {
@@ -73,6 +74,7 @@ namespace BooksRating.Controllers
             return View(genre);
         }
 
+        [Authorize(Roles ="admin")]
         // GET: Genres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -89,6 +91,7 @@ namespace BooksRating.Controllers
             return View(genre);
         }
 
+        [Authorize(Roles = "admin")]
         // POST: Genres/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
