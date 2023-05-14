@@ -19,8 +19,14 @@ public partial class Rating
     [Display(Name = "Читач")]
     public int ReaderId { get; set; }
 
+    [Display(Name = "Рейтинг")]
+    public int RatingId { get; set; }
+
     [Display(Name = "Книга")]
     public virtual Book Book { get; set; } = null!;
+
+    [Display(Name = "Рейтинг")]
+    public virtual RatingString RatingString { get; set; } = null!;
 
     [Display(Name = "Читач")]
     public virtual Reader Reader { get; set; } = null!;

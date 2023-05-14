@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace BooksRating.Models;
 
@@ -14,7 +15,17 @@ public partial class BookratingContext : DbContext
         : base(options)
     {
     }
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
 
+        //Action<TypeMappingConfigurationBuilder<EmployeeInfo>> actionEmployeeInfo = (buildAction) => { };
+        //configurationBuilder.DefaultTypeMapping(actionEmployeeInfo);
+        //Action<TypeMappingConfigurationBuilder> action = (buildAction) => { };
+        //configurationBuilder.DefaultTypeMapping(typeof(EmployeeInfo), action);
+        //configurationBuilder.DefaultTypeMapping(typeof(EmployeeInfo));
+        configurationBuilder.DefaultTypeMapping<Book>();
+    }
     public virtual DbSet<Author> Authors { get; set; }
 
     public virtual DbSet<Book> Books { get; set; }
@@ -28,6 +39,8 @@ public partial class BookratingContext : DbContext
     public virtual DbSet<Genre> Genres { get; set; }
 
     public virtual DbSet<Rating> Ratings { get; set; }
+
+    public virtual DbSet<RatingString> RatingStrings { get; set; }
 
     public virtual DbSet<Reader> Readers { get; set; }
 
@@ -106,6 +119,11 @@ public partial class BookratingContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Rating_Book");
 
+            entity.HasOne(d => d.RatingString).WithMany(p => p.Ratings)
+                .HasForeignKey(d => d.RatingId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Rating_RatingString");
+
             entity.HasOne(d => d.Reader).WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.ReaderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -115,6 +133,11 @@ public partial class BookratingContext : DbContext
         modelBuilder.Entity<Reader>(entity =>
         {
             entity.ToTable("Reader");
+        });
+
+        modelBuilder.Entity<RatingString>(entity =>
+        {
+            entity.ToTable("RatingString");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -21,7 +21,7 @@ namespace BooksRating.Controllers
         // GET: Ratings
         public async Task<IActionResult> Index()
         {
-            var bookratingContext = _context.Ratings.Include(r => r.Book).Include(r => r.Reader);
+            var bookratingContext = _context.Ratings.Include(r => r.Book).Include(r => r.Reader).Include(r=>r.RatingString);
             return View(await bookratingContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace BooksRating.Controllers
             var rating = await _context.Ratings
                 .Include(r => r.Book)
                 .Include(r => r.Reader)
+                .Include(r=>r.RatingString)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (rating == null)
             {

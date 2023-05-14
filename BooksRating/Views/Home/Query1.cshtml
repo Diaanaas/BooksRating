@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+<form method="post" action="/Home/Query1Res">
+    <div class="form-group">
+        <label class="control-label"></label>
+        <select name="selectedBook" class="form-control" asp-items="ViewBag.BookId"></select>
+    </div>
+    <input type="submit" value="Найти" class="btn btn-outline-dark" />
+</form>
+
+
