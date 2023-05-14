@@ -130,12 +130,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            var ratings = _context.Ratings.ToArray();
-            foreach (var b in ratings)
-            {
-                if (id == b.ReaderId)
-                    return Problem("Читач використовується");
-            }
+            //var ratings = _context.Ratings.ToArray();
+            //foreach (var b in ratings)
+            //{
+            //    if (id == b.ReaderId)
+            //        return Problem("Читач використовується");
+            //}
             var reader = await _context.Readers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reader == null)

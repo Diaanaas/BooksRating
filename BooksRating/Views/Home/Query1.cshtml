@@ -1,13 +1,71 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<h1>Прості запити</h1>
+<h2>Запит 1</h2>
+<p>Знайти всіх авторів книги П</p>
 <form method="post" action="/Home/Query1Res">
     <div class="form-group">
-        <label class="control-label"></label>
-        <select name="selectedBook" class="form-control" asp-items="ViewBag.BookId"></select>
+        <label class="control-label">Назва книги П</label>
+        <select name="selectedBook1" class="form-control" asp-items="ViewBag.BookId"></select>
     </div>
-    <input type="submit" value="Найти" class="btn btn-outline-dark" />
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
 </form>
-
+<h2>Запит 2</h2>
+<p>Знайти країни походження авторів книги П</p>
+<form method="post" action="/Home/Query2Res">
+    <div class="form-group">
+        <label class="control-label">Назва книги П</label>
+        <select name="selectedBook2" class="form-control" asp-items="ViewBag.BookId"></select>
+    </div>
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h2>Запит 3</h2>
+<p>Знайти кількість книг автора А</p>
+<form method="post" action="/Home/Query3Res">
+    <div class="form-group">
+        <label class="control-label">Імя автора А</label>
+        <select name="selectedAuthor1" class="form-control" asp-items="ViewBag.AuthorId"></select>
+    </div>
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h2>Запит 4</h2>
+<p>Знайти Жанри в яких пише автор А</p>
+<form method="post" action="/Home/Query4Res">
+    <div class="form-group">
+        <label class="control-label">Імя автора А</label>
+        <select name="selectedAuthor2" class="form-control" asp-items="ViewBag.AuthorId"></select>
+    </div>
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h2>Запит 5</h2>
+<p>Знайти всі оцінки читача</p>
+<form method="post" action="/Home/Query5Res">
+    <div class="form-group">
+        <label class="control-label">Імя читача Ч</label>
+        <select name="selectedReader" class="form-control" asp-items="ViewBag.ReaderId"></select>
+    </div>
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h1>Множинні запити</h1>
+<h2>Запит 1</h2>
+<p>Знайти авторів, що є авторами всіх книг</p>
+<form method="post" action="/Home/Query6Res">
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h2>Запит 2</h2>
+<p>Знайти авторів, що є авторами всіх книг</p>
+<form method="post" action="/Home/Query7Res">
+    <div class="form-group">
+        <label class="control-label">Імя читача Ч</label>
+        <select name="selectedReaderEmail" class="form-control" asp-items="ViewBag.ReaderEmailId"></select>
+    </div>
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<h2>Запит 3</h2>
+<p>Знайти читачів, що поставили всі оцінки</p>
+<form method="post" action="/Home/Query8Res">
+    <input type="submit" value="Знайти" class="btn btn-outline-dark" />
+</form>
+<a asp-controller="Home" asp-action="Index">На головну сторінку</a>
 

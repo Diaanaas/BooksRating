@@ -51,6 +51,7 @@ namespace BooksRating.Controllers
         {
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title");
             ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name");
+            ViewData["RatingId"] = new SelectList(_context.RatingStrings, "Id", "Rating");
             return View();
         }
 
@@ -59,7 +60,7 @@ namespace BooksRating.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Rating1,BookId,ReaderId")] Rating rating)
+        public async Task<IActionResult> Create([Bind("Id,Rating1,BookId,ReaderId,RatingId")] Rating rating)
         {
             if (ModelState.IsValid)
             {
@@ -69,6 +70,7 @@ namespace BooksRating.Controllers
             }
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
             ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["RatingId"] = new SelectList(_context.RatingStrings, "Id", "Rating", rating.RatingId);
             return View(rating);
         }
 
@@ -87,6 +89,7 @@ namespace BooksRating.Controllers
             }
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
             ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["RatingId"] = new SelectList(_context.RatingStrings, "Id", "Rating", rating.RatingId);
             return View(rating);
         }
 
@@ -124,6 +127,7 @@ namespace BooksRating.Controllers
             }
             ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", rating.BookId);
             ViewData["ReaderId"] = new SelectList(_context.Readers, "Id", "Name", rating.ReaderId);
+            ViewData["RatingId"] = new SelectList(_context.RatingStrings, "Id", "Rating", rating.RatingId);
             return View(rating);
         }
 

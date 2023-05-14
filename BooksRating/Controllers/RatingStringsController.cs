@@ -125,20 +125,20 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            var ratings = _context.Ratings.ToArray();
-            foreach (var b in ratings)
-            {
-                if (id == b.RatingId)
-                    return Problem("Рейтинг використовується");
-            }
-            var кatingString = await _context.RatingStrings
+            //var ratings = _context.Ratings.ToArray();
+            //foreach (var b in ratings)
+            //{
+            //    if (id == b.RatingId)
+            //        return Problem("Рейтинг використовується");
+            //}
+            var ratingString = await _context.RatingStrings
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (кatingString == null)
+            if (ratingString == null)
             {
                 return NotFound();
             }
 
-            return View(кatingString);
+            return View(ratingString);
         }
 
         // POST: Readers/Delete/5

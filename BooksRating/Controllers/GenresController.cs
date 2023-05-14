@@ -74,7 +74,6 @@ namespace BooksRating.Controllers
             return View(genre);
         }
 
-        [Authorize(Roles ="admin")]
         // GET: Genres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,7 +90,6 @@ namespace BooksRating.Controllers
             return View(genre);
         }
 
-        [Authorize(Roles = "admin")]
         // POST: Genres/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -134,12 +132,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            var bg = _context.BookGenres.ToArray();
-            foreach (var b in bg)
-            {
-                if (id == b.GenreId)
-                    return Problem("Жанр використовується");
-            }
+            //var bg = _context.BookGenres.ToArray();
+            //foreach (var b in bg)
+            //{
+            //    if (id == b.GenreId)
+            //        return Problem("Жанр використовується");
+            //}
             var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (genre == null)

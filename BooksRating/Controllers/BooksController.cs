@@ -167,12 +167,12 @@ namespace BooksRating.Controllers
             {
                 return NotFound();
             }
-            var ratings = _context.Ratings.ToArray();
-            foreach (var b in ratings)
-            {
-                if (id == b.BookId)
-                    return Problem("Книга використовується");
-            }
+            //var ratings = _context.Ratings.ToArray();
+            //foreach (var b in ratings)
+            //{
+            //    if (id == b.BookId)
+            //        return Problem("Книга використовується");
+            //}
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
