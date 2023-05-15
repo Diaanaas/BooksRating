@@ -49,8 +49,12 @@
 </form>
 <h1>Множинні запити</h1>
 <h2>Запит 1</h2>
-<p>Знайти авторів, що є авторами всіх книг</p>
+<p>Знайти авторів, що є авторами всіх книг, та мають імя А </p>
 <form method="post" action="/Home/Query6Res">
+    <div class="form-group">
+        <label class="control-label">Імя автора А</label>
+        <select name="selectedAuthor3" class="form-control" asp-items="ViewBag.AuthorId"></select>
+    </div>
     <input type="submit" value="Знайти" class="btn btn-outline-dark" />
 </form>
 <h2>Запит 2</h2>
@@ -63,8 +67,12 @@
     <input type="submit" value="Знайти" class="btn btn-outline-dark" />
 </form>
 <h2>Запит 3</h2>
-<p>Знайти читачів, що поставили всі оцінки</p>
+<p>Знайти читачів, що поставили всі оцінки та мають імя І</p>
 <form method="post" action="/Home/Query8Res">
+    <div class="form-group">
+        <label class="control-label">Імя читача І</label>
+        <select name="selectedReader2" class="form-control" asp-items="ViewBag.ReaderId"></select>
+    </div>
     <input type="submit" value="Знайти" class="btn btn-outline-dark" />
 </form>
 <a asp-controller="Home" asp-action="Index">На головну сторінку</a>

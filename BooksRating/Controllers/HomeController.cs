@@ -1,5 +1,6 @@
 ﻿using BooksRating.Models;
 using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -83,10 +84,11 @@ namespace BooksRating.Controllers
             var result = _context.Database.SqlQueryRaw<string>("SELECT distinct rs.Rating FROM Reader rd inner join Rating r on rd.Id=r.ReaderId inner join RatingString rs  on r.RatingId=rs.Id WHERE rd.Name = {0}", name).ToList();
             return View(result);
         }
-        public IActionResult Query6Res()
+        public IActionResult Query6Res(string[] selectedAuthor3)
         {
-
-            var result = _context.Database.SqlQueryRaw<string>("SELECT Author.Name FROM Author where Author.Id in (Select BookAuthor.AuthorId from BookAuthor group by BookAuthor.AuthorId having count(BookAuthor.BookId)= (select count(id) from Book))").ToList();
+            var name = selectedAuthor3.FirstOrDefault();
+            ViewBag.Name = name;
+            var result = _context.Database.SqlQueryRaw<string>("SELECT Author.Name FROM Author where Author.Name = {0} AND  Author.Id in (Select BookAuthor.AuthorId from BookAuthor group by BookAuthor.AuthorId having count(BookAuthor.BookId)= (select count(id) from Book))", name).ToList();
             return View(result);
         }
 
@@ -98,9 +100,10 @@ namespace BooksRating.Controllers
             return View(result);
         }
 
-        public IActionResult Query8Res()
+        public IActionResult Query8Res(string[] selectedReader2)
         {
-            var result = _context.Database.SqlQueryRaw<string>("SELECT r.Name FROM Reader r WHERE NOT EXISTS ((SELECT Rating.RatingId FROM Rating WHERE Rating.ReaderId = r.Id) EXCEPT (SELECT RatingString.Id FROM RatingString)) AND NOT EXISTS ((SELECT RatingString.Id FROM RatingString) EXCEPT (SELECT Rating.RatingId FROM Rating WHERE Rating.ReaderId = r.Id))").ToList();
+            var name = selectedReader2.FirstOrDefault();
+            var result = _context.Database.SqlQueryRaw<string>("SELECT r.Name FROM Reader r WHERE r.Name = {0} AND NOT EXISTS ((SELECT Rating.RatingId FROM Rating WHERE Rating.ReaderId = r.Id) EXCEPT (SELECT RatingString.Id FROM RatingString)) AND NOT EXISTS ((SELECT RatingString.Id FROM RatingString) EXCEPT (SELECT Rating.RatingId FROM Rating WHERE Rating.ReaderId = r.Id))", name).ToList();
             return View(result);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
